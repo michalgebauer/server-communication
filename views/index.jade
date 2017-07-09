@@ -1,0 +1,44 @@
+html
+    head
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+        title Tovar
+        style.
+            .table th:nth-child(3) { width: 200px; }
+            input[type='text'] { width: 300px; }
+            ul.nav {margin: 20px 0; }
+    body
+        div.container
+            ul.nav.nav-pills
+                li.active(role="presentation")
+                    a(href="") Old school stranka
+                li(role="presentation")
+                    a(href="/ajax") Ajax
+            form(method="post")
+                if tovar.error
+                    div.alert.alert-danger(role="alert")= tovar.error
+                input(type="hidden", name="id", value="#{tovar.id}")
+                div.form-group
+                    label(for="tovar") Tovar
+                    input.form-control(type="text", name="tovar", id="tovar", value="#{tovar.tovar}")
+                div.form-group
+                    label(for="ks") Ks
+                    input.form-control(type="text", name="ks", id="ks", value="#{tovar.ks}")
+                div.form-group
+                    input.btn.btn-success(type="submit", value="uloz")
+                    | &nbsp;
+                    a.btn.btn-default(href="/" role="button") Zrus
+            table.table
+                thead
+                    tr
+                        th Tovar
+                        th Ks
+                        th Akcie
+                tbody
+                    for g in goods
+                        tr
+                            td= g.tovar
+                            td= g.ks
+                            td
+                                a.btn.btn-default(href="/delete?id=#{g.id}" role="button") Vymaz
+                                | &nbsp;
+                                a.btn.btn-default(href="/?id=#{g.id}" role="button") Edituj
